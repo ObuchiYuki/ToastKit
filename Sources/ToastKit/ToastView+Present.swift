@@ -19,5 +19,10 @@ extension ToastView {
         alertView.presentSide = presentSide
         alertView.present(haptic: haptic, completion: completion)
     }
+    
+    public static func presentError(_ error: Error) {
+        let toast = ToastView(title: error.localizedDescription, preset: .error)
+        toast.present()
+    }
 }
 
