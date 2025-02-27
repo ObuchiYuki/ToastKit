@@ -211,6 +211,7 @@ open class ToastView: UIView {
     private var whenGestureEndShoudHide: Bool = false
     
     @objc func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
+        guard self.dismissByDrag else { return }
         
         if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
             self.gestureIsDragging = true
@@ -292,7 +293,7 @@ open class ToastView: UIView {
             switch side {
             case .top:
                 var topSafeAreaInsets = window.safeAreaInsets.top
-                if topSafeAreaInsets < 20 { topSafeAreaInsets = 20 }
+                if topSafeAreaInsets <= 20 { topSafeAreaInsets = 28 }
                 let position = topSafeAreaInsets - 3 + self.offset
                 return CGAffineTransform.identity.translatedBy(x: 0, y: position)
             case .bottom:
