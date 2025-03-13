@@ -1,3 +1,10 @@
+//
+//  ToastIconErrorView.swift
+//  ToastKit
+//
+//  Created by yuki on 2025/03/13.
+//
+
 import UIKit
 
 public class ToastIconErrorView: UIView, ToastIconAnimatable {

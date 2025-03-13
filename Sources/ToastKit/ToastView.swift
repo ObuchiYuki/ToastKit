@@ -1,26 +1,33 @@
+//
+//  ToastView.swift
+//  ToastKit
+//
+//  Created by yuki on 2025/03/13.
+//
+
 import UIKit
 
-open class ToastView: UIView {
+final public class ToastView: UIView {
     
-    // MARK: - UIAppearance
-
-    @objc dynamic open var duration: TimeInterval = 2
+    public enum PresentSide {
+        case top
+        case center
+        case bottom
+    }
     
-    // MARK: - Properties
-
-    open var presentSide: ToastPresentSide = .top
+    public var presentSide: ToastView.PresentSide = .top
     
-    open var dismissByDrag: Bool = true {
+    public var allowsDismissByDrag: Bool = true {
         didSet { self.setGesture() }
     }
     
-    open var completion: (() -> Void)? = nil
+    public var completion: (() -> Void)? = nil
+        
+    public var titleLabel: UILabel?
     
-    // MARK: - Views
+    public var subtitleLabel: UILabel?
     
-    open var titleLabel: UILabel?
-    open var subtitleLabel: UILabel?
-    open var iconView: UIView?
+    public var iconView: UIView?
     
     private lazy var backgroundView: UIVisualEffectView = {
         let view = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
@@ -28,7 +35,8 @@ open class ToastView: UIView {
         return view
     }()
     
-    weak open var presentWindow: UIWindow?
+    weak public var presentWindow: UIWindow?
+    
     
     // MARK: - Init
     
@@ -53,12 +61,6 @@ open class ToastView: UIView {
         if let message = message {
             self.setMessage(message)
         }
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        self.presentSide = .top
-        super.init(coder: aDecoder)
-        self.commonInit()
     }
     
     private func commonInit() {
@@ -121,12 +123,13 @@ open class ToastView: UIView {
     }
     
     private func setGesture() {
-        if self.dismissByDrag {
+        if self.allowsDismissByDrag {
             let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
             self.addGestureRecognizer(gestureRecognizer)
             self.gestureRecognizer = gestureRecognizer
         } else {
             self.gestureRecognizer = nil
+            self.gestureRecognizers?.forEach { self.removeGestureRecognizer($0) }
         }
     }
     
@@ -138,12 +141,8 @@ open class ToastView: UIView {
         if presentSide == .center { return true }
         return false
     }
-    
-    open func present(haptic: ToastHaptic = .success, completion: (() -> Void)? = nil) {
-        present(duration: self.duration, haptic: haptic, completion: completion)
-    }
-    
-    open func present(duration: TimeInterval, haptic: ToastHaptic = .success, completion: (() -> Void)? = nil) {
+
+    public func present(duration: TimeInterval = 2.0, haptic: ToastHaptic = .success, completion: (() -> Void)? = nil) {
         
         if self.presentWindow == nil {
             assert(!UIApplication.shared.supportsMultipleScenes, "ToastView: You should set presentWindow for multiple scenes.")
@@ -191,7 +190,7 @@ open class ToastView: UIView {
         }
     }
     
-    @objc open func dismiss() {
+    @objc public func dismiss() {
         UIView.animate(withDuration: presentAndDismissDuration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.beginFromCurrentState, .curveEaseIn], animations: {
             self.toPresentPosition(.prepare(self.presentSide))
             if self.presentWithOpacity { self.alpha = 0 }
@@ -211,7 +210,7 @@ open class ToastView: UIView {
     private var whenGestureEndShoudHide: Bool = false
     
     @objc func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
-        guard self.dismissByDrag else { return }
+        guard self.allowsDismissByDrag else { return }
         
         if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
             self.gestureIsDragging = true
@@ -268,7 +267,7 @@ open class ToastView: UIView {
     
     private func toPresentPosition(_ position: PresentPosition) {
         
-        let getPrepareTransform: ((_ side: ToastPresentSide) -> CGAffineTransform) = { [weak self] side in
+        let getPrepareTransform: ((_ side: ToastView.PresentSide) -> CGAffineTransform) = { [weak self] side in
             guard let self = self else { return .identity }
                         
             guard let window = UIApplication.shared.sceneWindows.first else { return .identity }
@@ -287,7 +286,7 @@ open class ToastView: UIView {
             }
         }
         
-        let getVisibleTransform: ((_ side: ToastPresentSide) -> CGAffineTransform) = { [weak self] side in
+        let getVisibleTransform: ((_ side: ToastView.PresentSide) -> CGAffineTransform) = { [weak self] side in
             guard let self = self else { return .identity }
             guard let window = UIApplication.shared.sceneWindows.first else { return .identity }
             switch side {
@@ -319,15 +318,9 @@ open class ToastView: UIView {
     
     // MARK: - Layout
     
-    /**
-     SPIndicator: Wraper of layout values.
-     */
-    open var layout: ToastLayout = .init()
+    public var layout: ToastLayout = .init()
     
-    /**
-     SPIndicator: Alert offset
-     */
-    open var offset: CGFloat = 0
+    public var offset: CGFloat = 0
     
     private var areaHeight: CGFloat = 50
     private var minimumAreaWidth: CGFloat = 196
@@ -354,7 +347,7 @@ open class ToastView: UIView {
         }
     }
     
-    open override func sizeThatFits(_ size: CGSize) -> CGSize {
+    public override func sizeThatFits(_ size: CGSize) -> CGSize {
         titleLabel?.sizeToFit()
         let titleWidth: CGFloat = titleLabel?.frame.width ?? 0
         subtitleLabel?.sizeToFit()
@@ -367,7 +360,7 @@ open class ToastView: UIView {
         return .init(width: width, height: areaHeight)
     }
     
-    open override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         
         layoutMargins = layout.margins
@@ -497,7 +490,7 @@ open class ToastView: UIView {
             layoutIcon()
             titleLabel?.numberOfLines = 2
             layoutTitleCenteredCompact()
-        case .iconTitleLeading:
+        case .iconTitleLeading: // Not used
             layoutIcon()
             titleLabel?.numberOfLines = 2
             layoutTitleLeadingFullWidth()
@@ -515,9 +508,9 @@ open class ToastView: UIView {
     // MARK: - Models
     
     enum PresentPosition {
-        case prepare(_ from: ToastPresentSide)
-        case visible(_ from: ToastPresentSide)
-        case fromVisible(_ translation: CGFloat, from: ToastPresentSide)
+        case prepare(_ from: ToastView.PresentSide)
+        case visible(_ from: ToastView.PresentSide)
+        case fromVisible(_ translation: CGFloat, from: ToastView.PresentSide)
     }
     
     enum LayoutGrid {
@@ -527,6 +520,10 @@ open class ToastView: UIView {
         case iconTitleLeading
         case title
         case titleMessage
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -539,3 +536,4 @@ extension UIApplication {
         UIApplication.shared.connectedScenes.compactMap{ $0 as? UIWindowScene }.flatMap{ $0.windows }.filter{ $0.isKeyWindow }
     }
 }
+
