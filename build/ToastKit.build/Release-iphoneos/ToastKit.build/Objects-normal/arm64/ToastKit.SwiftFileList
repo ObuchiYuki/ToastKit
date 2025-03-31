@@ -1,0 +1,10 @@
+/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/Ex/UIFont+Ex.swift
+/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/Ex/UILabel+Ex.swift
+/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/Icons/ToastIconDoneView.swift
+/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/Icons/ToastIconErrorView.swift
+/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/Models/ToastLayout.swift
+/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/Protocols/ToastIconAnimatable.swift
+/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/Services/ToastHaptic.swift
+/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/ToastIconPreset.swift
+/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/ToastView+Present.swift
+/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/ToastView.swift

@@ -1,0 +1,15 @@
+version: "Apple Swift version 6.0.3 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)"
+options: "d8acda848f7a9123aa25d1af8ae30accf9972e28203dcd45026f3d98d1b6a9d0"
+build_start_time: [1743399079, 817832000]
+build_end_time: [1743399083, 92279000]
+inputs:
+  "/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/Ex/UIFont+Ex.swift": [1741849369, 371579434]
+  "/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/Ex/UILabel+Ex.swift": [1741849376, 578631115]
+  "/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/Icons/ToastIconDoneView.swift": [1741849384, 761179419]
+  "/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/Icons/ToastIconErrorView.swift": [1741849385, 692472985]
+  "/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/Models/ToastLayout.swift": [1741849332, 633361797]
+  "/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/Protocols/ToastIconAnimatable.swift": [1741849332, 633924025]
+  "/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/Services/ToastHaptic.swift": [1741849332, 634410730]
+  "/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/ToastIconPreset.swift": [1741849332, 634646443]
+  "/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/ToastView+Present.swift": [1741850606, 463050438]
+  "/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/ToastView.swift": [1741850865, 750380900]

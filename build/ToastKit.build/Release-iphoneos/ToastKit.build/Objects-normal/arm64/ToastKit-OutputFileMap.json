@@ -1,0 +1,60 @@
+{
+  "" : {
+    "const-values" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastKit-master.swiftconstvalues",
+    "dependencies" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastKit-master.d",
+    "diagnostics" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastKit-master.dia",
+    "emit-module-dependencies" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastKit-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastKit-master-emit-module.dia",
+    "swift-dependencies" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastKit-master.swiftdeps"
+  },
+  "/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/Ex/UIFont+Ex.swift" : {
+    "index-unit-output-path" : "/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/UIFont+Ex.o",
+    "llvm-bc" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/UIFont+Ex.bc",
+    "object" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/UIFont+Ex.o"
+  },
+  "/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/Ex/UILabel+Ex.swift" : {
+    "index-unit-output-path" : "/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/UILabel+Ex.o",
+    "llvm-bc" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/UILabel+Ex.bc",
+    "object" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/UILabel+Ex.o"
+  },
+  "/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/Icons/ToastIconDoneView.swift" : {
+    "index-unit-output-path" : "/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastIconDoneView.o",
+    "llvm-bc" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastIconDoneView.bc",
+    "object" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastIconDoneView.o"
+  },
+  "/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/Icons/ToastIconErrorView.swift" : {
+    "index-unit-output-path" : "/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastIconErrorView.o",
+    "llvm-bc" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastIconErrorView.bc",
+    "object" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastIconErrorView.o"
+  },
+  "/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/Models/ToastLayout.swift" : {
+    "index-unit-output-path" : "/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastLayout.o",
+    "llvm-bc" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastLayout.bc",
+    "object" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastLayout.o"
+  },
+  "/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/Protocols/ToastIconAnimatable.swift" : {
+    "index-unit-output-path" : "/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastIconAnimatable.o",
+    "llvm-bc" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastIconAnimatable.bc",
+    "object" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastIconAnimatable.o"
+  },
+  "/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/Services/ToastHaptic.swift" : {
+    "index-unit-output-path" : "/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastHaptic.o",
+    "llvm-bc" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastHaptic.bc",
+    "object" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastHaptic.o"
+  },
+  "/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/ToastIconPreset.swift" : {
+    "index-unit-output-path" : "/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastIconPreset.o",
+    "llvm-bc" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastIconPreset.bc",
+    "object" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastIconPreset.o"
+  },
+  "/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/ToastView+Present.swift" : {
+    "index-unit-output-path" : "/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastView+Present.o",
+    "llvm-bc" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastView+Present.bc",
+    "object" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastView+Present.o"
+  },
+  "/Users/yuki/Developer/SwiftPM/ToastKit/Sources/ToastKit/ToastView.swift" : {
+    "index-unit-output-path" : "/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastView.o",
+    "llvm-bc" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastView.bc",
+    "object" : "/Users/yuki/Developer/SwiftPM/ToastKit/build/ToastKit.build/Release-iphoneos/ToastKit.build/Objects-normal/arm64/ToastView.o"
+  }
+}
