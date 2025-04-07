@@ -1,4 +1,0 @@
-module ToastKit {
-header "ToastKit-Swift.h"
-export *
-}
