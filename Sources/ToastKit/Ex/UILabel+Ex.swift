@@ -5,7 +5,6 @@
 //  Created by yuki on 2025/03/13.
 //
 
-
 import UIKit
 
 extension UILabel {

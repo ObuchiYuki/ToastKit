@@ -8,7 +8,6 @@
 import UIKit
 
 final public class ToastView: UIView {
-    
     public enum PresentSide {
         case top
         case center
@@ -35,8 +34,21 @@ final public class ToastView: UIView {
         return view
     }()
     
-    weak public var presentWindow: UIWindow?
+    public weak var presentingWindow: UIWindow?
     
+    
+    private static let presentAndDismissDuration: TimeInterval = 0.6
+    
+    private static let minimumYTranslationForHideByGesture: CGFloat = -10
+    
+    private static let maximumYTranslationByGesture: CGFloat = 60
+    
+    
+    private var gestureRecognizer: UIPanGestureRecognizer?
+    
+    private var gestureIsDragging: Bool = false
+    
+    private var whenGestureEndShoudHide: Bool = false
     
     // MARK: - Init
     
@@ -135,8 +147,6 @@ final public class ToastView: UIView {
     
     // MARK: - Present
     
-    private var presentAndDismissDuration: TimeInterval = 0.6
-    
     private var presentWithOpacity: Bool {
         if presentSide == .center { return true }
         return false
@@ -144,12 +154,12 @@ final public class ToastView: UIView {
 
     public func present(duration: TimeInterval = 2.0, haptic: ToastHaptic = .success, completion: (() -> Void)? = nil) {
         
-        if self.presentWindow == nil {
+        if self.presentingWindow == nil {
             assert(!UIApplication.shared.supportsMultipleScenes, "ToastView: You should set presentWindow for multiple scenes.")
-            self.presentWindow = UIApplication.shared.sceneKeyWindows.first
+            self.presentingWindow = UIApplication.shared.sceneKeyWindows.first
         }
         
-        guard let window = self.presentWindow else { return }
+        guard let window = self.presentingWindow else { return }
         
         window.addSubview(self)
         
@@ -158,19 +168,19 @@ final public class ToastView: UIView {
         self.whenGestureEndShoudHide = false
         self.completion = completion
         
-        isHidden = true
-        sizeToFit()
+        self.isHidden = true
+        self.sizeToFit()
         self.layoutSubviews()
-        center.x = window.frame.midX
+        self.center.x = window.frame.midX
         self.toPresentPosition(.prepare(presentSide))
         
         self.alpha = self.presentWithOpacity ? 0 : 1
         
         // Present
         
-        isHidden = false
+        self.isHidden = false
         haptic.impact()
-        UIView.animate(withDuration: self.presentAndDismissDuration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.beginFromCurrentState, .curveEaseOut], animations: {
+        UIView.animate(withDuration: Self.presentAndDismissDuration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.beginFromCurrentState, .curveEaseOut], animations: {
             self.toPresentPosition(.visible(self.presentSide))
             if self.presentWithOpacity { self.alpha = 1 }
         }, completion: { finished in
@@ -184,14 +194,14 @@ final public class ToastView: UIView {
         })
         
         if let iconView = self.iconView as? ToastIconAnimatable {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + presentAndDismissDuration / 3) {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Self.presentAndDismissDuration / 3) {
                 iconView.animate()
             }
         }
     }
     
     @objc public func dismiss() {
-        UIView.animate(withDuration: presentAndDismissDuration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.beginFromCurrentState, .curveEaseIn], animations: {
+        UIView.animate(withDuration: Self.presentAndDismissDuration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.beginFromCurrentState, .curveEaseIn], animations: {
             self.toPresentPosition(.prepare(self.presentSide))
             if self.presentWithOpacity { self.alpha = 0 }
         }, completion: { finished in
@@ -202,12 +212,6 @@ final public class ToastView: UIView {
     
     // MARK: - Internal
     
-    private var minimumYTranslationForHideByGesture: CGFloat = -10
-    private var maximumYTranslationByGesture: CGFloat = 60
-    
-    private var gestureRecognizer: UIPanGestureRecognizer?
-    private var gestureIsDragging: Bool = false
-    private var whenGestureEndShoudHide: Bool = false
     
     @objc func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
         guard self.allowsDismissByDrag else { return }
@@ -216,24 +220,24 @@ final public class ToastView: UIView {
             self.gestureIsDragging = true
             let translation = gestureRecognizer.translation(in: self)
             let newTranslation: CGFloat = {
-                switch presentSide {
+                switch self.presentSide {
                 case .top:
                     if translation.y <= 0 {
                         return translation.y
                     } else {
-                        return min(maximumYTranslationByGesture, translation.y.squareRoot())
+                        return min(Self.maximumYTranslationByGesture, translation.y.squareRoot())
                     }
                 case .bottom:
                     if translation.y >= 0 {
                         return translation.y
                     } else {
                         let absolute = abs(translation.y)
-                        return -min(maximumYTranslationByGesture, absolute.squareRoot())
+                        return -min(Self.maximumYTranslationByGesture, absolute.squareRoot())
                     }
                 case .center:
                     let absolute = abs(translation.y).squareRoot()
                     let newValue = translation.y < 0 ? -absolute : absolute
-                    return min(maximumYTranslationByGesture, newValue)
+                    return min(Self.maximumYTranslationByGesture, newValue)
                 }
             }()
             toPresentPosition(.fromVisible(newTranslation, from: (presentSide)))
@@ -244,13 +248,13 @@ final public class ToastView: UIView {
             
             var shoudDismissWhenEndAnimation: Bool = false
             
-            UIView.animate(withDuration: presentAndDismissDuration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.beginFromCurrentState, .curveEaseIn], animations: {
+            UIView.animate(withDuration: Self.presentAndDismissDuration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.beginFromCurrentState, .curveEaseIn], animations: {
                 if self.whenGestureEndShoudHide {
                     self.toPresentPosition(.prepare(self.presentSide))
                     shoudDismissWhenEndAnimation = true
                 } else {
                     let translation = gestureRecognizer.translation(in: self)
-                    if translation.y < self.minimumYTranslationForHideByGesture {
+                    if translation.y < Self.minimumYTranslationForHideByGesture {
                         self.toPresentPosition(.prepare(self.presentSide))
                         shoudDismissWhenEndAnimation = true
                     } else {
@@ -318,9 +322,9 @@ final public class ToastView: UIView {
     
     // MARK: - Layout
     
-    public var layout: ToastLayout = .init()
+    private var layout: ToastLayout = .init()
     
-    public var offset: CGFloat = 0
+    private var offset: CGFloat = 0
     
     private var areaHeight: CGFloat = 50
     private var minimumAreaWidth: CGFloat = 196
@@ -348,25 +352,25 @@ final public class ToastView: UIView {
     }
     
     public override func sizeThatFits(_ size: CGSize) -> CGSize {
-        titleLabel?.sizeToFit()
+        self.titleLabel?.sizeToFit()
         let titleWidth: CGFloat = titleLabel?.frame.width ?? 0
-        subtitleLabel?.sizeToFit()
+        self.subtitleLabel?.sizeToFit()
         let subtitleWidth: CGFloat = subtitleLabel?.frame.width ?? 0
         var width = (max(titleWidth, subtitleWidth) * titleAreaFactor).rounded()
         
         if width < minimumAreaWidth { width = minimumAreaWidth }
         if width > maximumAreaWidth { width = maximumAreaWidth }
         
-        return .init(width: width, height: areaHeight)
+        return CGSize(width: width, height: areaHeight)
     }
     
     public override func layoutSubviews() {
         super.layoutSubviews()
         
-        layoutMargins = layout.margins
-        layer.cornerRadius = frame.height / 2
-        backgroundView.frame = bounds
-        backgroundView.layer.cornerRadius = layer.cornerRadius
+        self.layoutMargins = layout.margins
+        self.layer.cornerRadius = frame.height / 2
+        self.backgroundView.frame = bounds
+        self.backgroundView.layer.cornerRadius = layer.cornerRadius
         
         // Flags
         
@@ -490,10 +494,6 @@ final public class ToastView: UIView {
             layoutIcon()
             titleLabel?.numberOfLines = 2
             layoutTitleCenteredCompact()
-        case .iconTitleLeading: // Not used
-            layoutIcon()
-            titleLabel?.numberOfLines = 2
-            layoutTitleLeadingFullWidth()
         case .title:
             titleLabel?.numberOfLines = 2
             layoutTitleCenteredFullWidth()
@@ -507,17 +507,16 @@ final public class ToastView: UIView {
     
     // MARK: - Models
     
-    enum PresentPosition {
+    private enum PresentPosition {
         case prepare(_ from: ToastView.PresentSide)
         case visible(_ from: ToastView.PresentSide)
         case fromVisible(_ translation: CGFloat, from: ToastView.PresentSide)
     }
     
-    enum LayoutGrid {
+    private enum LayoutGrid {
         case iconTitleMessageCentered
         case iconTitleMessageLeading
         case iconTitleCentered
-        case iconTitleLeading
         case title
         case titleMessage
     }

@@ -1,3 +1,10 @@
+//
+//  ToastView.swift
+//  ToastKit
+//
+//  Created by yuki on 2025/03/13.
+//
+
 import UIKit
 
 public enum ToastIconPreset {
@@ -38,8 +45,7 @@ public extension ToastIconPreset {
     }
 }
 
-public extension ToastLayout {
-    
+extension ToastLayout {    
     convenience init() {
         self.init(
             iconSize: .init(

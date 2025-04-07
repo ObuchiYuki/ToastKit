@@ -1,3 +1,10 @@
+//
+//  ToastView.swift
+//  ToastKit
+//
+//  Created by yuki on 2025/03/13.
+//
+
 import UIKit
 
 extension ToastView {
@@ -21,7 +28,10 @@ extension ToastView {
     }
     
     public static func presentError(_ error: Error, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+        #if DEBUG
         print("🚨 \(error.localizedDescription) in \(file) \(function) \(line)")
+        #endif
+        
         let toast = ToastView(title: error.localizedDescription, preset: .error)
         toast.present()
     }

@@ -1,11 +1,18 @@
+//
+//  ToastLayout.swift
+//  ToastKit
+//
+//  Created by yuki on 2025/03/13.
+//
+
 import UIKit
 
-open class ToastLayout {
-    open var iconSize: CGSize
+final class ToastLayout {
+    var iconSize: CGSize
     
-    open var margins: UIEdgeInsets
+    var margins: UIEdgeInsets
     
-    public init(iconSize: CGSize, margins: UIEdgeInsets) {
+    init(iconSize: CGSize, margins: UIEdgeInsets) {
         self.iconSize = iconSize
         self.margins = margins
     }
